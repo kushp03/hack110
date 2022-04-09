@@ -102,6 +102,19 @@ while running:
 
     # BREAK ---------------------------- IN THE CASE OF COLLISION ----------------------------
     # Turn Running to false, turn collsion to True
+    point = pygame.mouse.get_pos()
+    collide = main_char.collidepoint(point)
+    color = (255, 0, 0) if collide else (255, 255, 255)
+
+    if main_char.is_collided_with(object1):
+        running = False
+        collision = True
+
+    #screen.fill(0)
+    #pygame.draw.rect(screen, color, main_char)
+    #pygame.display.flip()
+
+
 
 
 
