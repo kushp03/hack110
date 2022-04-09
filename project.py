@@ -24,10 +24,15 @@ clock = pygame.time.Clock()
 # General size and fall speed of all objects:
 object_size: int = 25
 fall_speed: int = 5
+fall_speed2: int = 5
+fall_speed3: int = 5
+fall_speed4: int = 5
+fall_speed5: int = 5
+increase_speed_by: int = 1
 
 # Setting up objects
-object1: pygame.Rect = pygame.Rect(random.randrange(10, 890), -100, object_size * 2, object_size * 2)
-object2: pygame.Rect = pygame.Rect(random.randrange(10, 890), 10, object_size * 2, object_size * 2)
+object1: pygame.Rect = pygame.Rect(random.randrange(10, 890), 10, object_size * 2, object_size * 2)
+object2: pygame.Rect = pygame.Rect(random.randrange(10, 890), -100, object_size * 2, object_size * 2)
 object3: pygame.Rect = pygame.Rect(random.randrange(10, 890), -250, object_size * 2, object_size * 2)
 object4: pygame.Rect = pygame.Rect(random.randrange(10, 890), -450, object_size * 2, object_size * 2)
 object5: pygame.Rect = pygame.Rect(random.randrange(10, 890), -600, object_size * 2, object_size * 2)
@@ -71,32 +76,35 @@ while running:
         object1.centery = 10
         object1.centerx = random.randrange(10, 890)  # Starts the object at some random value of x.
         player_score += 10
+        fall_speed += increase_speed_by
 
-    object2.centery += fall_speed  # Cause object #1 to fall
+    object2.centery += fall_speed2  # Cause object #1 to fall
     if object2.centery >= 890:  # If object #1 hits the bottom of the screen, reset its y-parameter.
         object2.centery = 10
         object2.centerx = random.randrange(10, 890)  # Starts the object at some random value of x.
         player_score += 10
+        fall_speed2 += increase_speed_by
 
-    object3.centery += fall_speed  # Cause object #1 to fall
+    object3.centery += fall_speed3  # Cause object #1 to fall
     if object3.centery >= 890:  # If object #1 hits the bottom of the screen, reset its y-parameter.
         object3.centery = 10
         object3.centerx = random.randrange(10, 890)  # Starts the object at some random value of x.
         player_score += 10
+        fall_speed3 += increase_speed_by
 
-    object4.centery += fall_speed  # Cause object #1 to fall
+    object4.centery += fall_speed4  # Cause object #1 to fall
     if object4.centery >= 890:  # If object #1 hits the bottom of the screen, reset its y-parameter.
         object4.centery = 10
         object4.centerx = random.randrange(10, 890)  # Starts the object at some random value of x.
         player_score += 10
+        fall_speed4 += increase_speed_by
 
-    object5.centery += fall_speed  # Cause object #1 to fall
+    object5.centery += fall_speed5  # Cause object #1 to fall
     if object5.centery >= 890:  # If object #1 hits the bottom of the screen, reset its y-parameter.
         object5.centery = 10
         object5.centerx = random.randrange(10, 890)  # Starts the object at some random value of x.
-        player_score += 10    
-
-    # IMPORTANT NOTES - It would be cool to increase the size of the object each time it went all the way down so that we can make the game harder.
+        player_score += 10
+        fall_speed5 += increase_speed_by
 
     # BREAK ---------------------------- OCCURANCES OF KEY PRESS ----------------------------
 
@@ -146,15 +154,12 @@ while running:
 
     pygame.display.flip()
 
-
+collision = True
 # BREAK ---------------------------- CREATION OF FINAL CONCLUSION SCREEN ----------------------------
-    # Create a new screen that summarizes that the player won, and give them their final score.
-    # Eventually, figure out a way to allow the player to hit the enter key to start a new round that restarts the entire code and allows them to play again.
-    # In the case they start a new round, have a variable that keeps track of the highest score achieved in that play.
-    # When the code restarts (or anytime the game is played), give the player options in playing a certain mode - hard mode has really quickly falling boulders.
-
-
-
+# Create a new screen that summarizes that the player won, and give them their final score.
+# Eventually, figure out a way to allow the player to hit the enter key to start a new round that restarts the entire code and allows them to play again.
+# In the case they start a new round, have a variable that keeps track of the highest score achieved in that play.
+# When the code restarts (or anytime the game is played), give the player options in playing a certain mode - hard mode has really quickly falling boulders.
 
 end_screen = pygame.display.set_mode([900, 900])
 display_surface = pygame.display.set_mode((900, 900))
@@ -163,10 +168,26 @@ while collision:
     screen.fill((120, 200, 255))
 
     font = pygame.font.Font('freesansbold.ttf', 40)
-    text = font.render(f'You lost!\nThanks for playing! Come back soon!\nYour score was: {player_score}\n Press the escape key to exit or close the tab.', True, (0, 0, 0), (255, 255, 255))
+    text = font.render('You lost, but thanks for playing!', True, (0, 0, 0))
     textRect = text.get_rect()
-    textRect.center = (500, 500)
+    textRect.center = (450, 300)
+
+    text2 = font.render(f'Your score was: {player_score}.', True, (0, 0, 0))
+    textRect2 = text2.get_rect()
+    textRect2.center = (450, 400)
+
+    text3 = font.render('Come back soon!', True, (0, 0, 0))
+    textRect3 = text2.get_rect()
+    textRect3.center = (450, 500)
+
+    text4 = font.render('Press the escape key to exit or close the tab.', True, (0, 0, 0))
+    textRect4 = text2.get_rect()
+    textRect4.center = (215, 600)
+
     screen.blit(text, textRect)
+    screen.blit(text2, textRect2)
+    screen.blit(text3, textRect3)
+    screen.blit(text4, textRect4)
 
     for event in pygame.event.get():
 
@@ -177,7 +198,6 @@ while collision:
 
         if event.type == pygame.QUIT:
             collision = False
-    
     
     pygame.display.flip()
 
