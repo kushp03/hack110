@@ -116,9 +116,31 @@ while running:
 
     # BREAK ---------------------------- IN THE CASE OF COLLISION ----------------------------
     # Turn Running to false, turn collsion to True
+    hit1 = object1.colliderect(main_char)
+    hit2 = object2.colliderect(main_char)
+    hit3 = object3.colliderect(main_char)
+    hit4 = object4.colliderect(main_char)
+    hit5 = object5.colliderect(main_char)
 
+    if(hit1):
+        running = False
+        collision = True
 
+    if(hit2):
+        running = False
+        collision = True
 
+    if(hit3):
+        running = False
+        collision = True
+
+    if(hit4):
+        running = False
+        collision = True
+
+    if(hit5):
+        running = False
+        collision = True
 
     # BREAK ---------------------------- FINAL DETAILS ----------------------------
 
@@ -140,10 +162,10 @@ display_surface = pygame.display.set_mode((900, 900))
 while collision:
     screen.fill((120, 200, 255))
 
-    font = pygame.font.Font('freesansbold.ttf', 80)
+    font = pygame.font.Font('freesansbold.ttf', 40)
     text = font.render(f'You lost!\nThanks for playing! Come back soon!\nYour score was: {player_score}\n Press the escape key to exit or close the tab.', True, (0, 0, 0), (255, 255, 255))
     textRect = text.get_rect()
-    textRect.center = (800, 100)
+    textRect.center = (500, 500)
     screen.blit(text, textRect)
 
     for event in pygame.event.get():
